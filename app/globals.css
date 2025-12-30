@@ -1,0 +1,126 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+@import "tailwindcss";
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.2s ease-out;
+}
+
+/* -------------------------------------------------- */
+/* Marquee Animations - Seamless Loop (boşluksuz)     */
+/* -------------------------------------------------- */
+
+/* SAĞA KAYAN SATIR (içerik sağa doğru akıyor) */
+@keyframes marquee-right {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* SOLA KAYAN SATIR (içerik sola doğru akıyor) */
+@keyframes marquee-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Dış container – sadece kesmek için */
+.marquee-right,
+.marquee-left {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Asıl kayan track */
+.marquee-track {
+  display: inline-flex;       /* yan yana iki kopya */
+  white-space: nowrap;
+}
+
+/* Animasyonlar track üzerinde çalışıyor */
+.marquee-right .marquee-track,
+.marquee-left .marquee-track {
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+/* SADECE animation-name veriyoruz */
+.marquee-right .marquee-track {
+  animation-name: marquee-right;
+  animation-duration: 30s; /* Services section: slower, elegant speed */
+}
+
+.marquee-left .marquee-track {
+  animation-name: marquee-left;
+  animation-duration: 30s; /* Services section: slower, elegant speed */
+}
+
+/* CTA Section Marquee - Responsive Animation Speed */
+.cta-marquee-right,
+.cta-marquee-left {
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.cta-marquee-right {
+  animation-name: marquee-right;
+  animation-duration: 10s; /* Mobile: even faster */
+}
+
+.cta-marquee-left {
+  animation-name: marquee-left;
+  animation-duration: 10s; /* Mobile: even faster */
+}
+
+/* Desktop: slower, more elegant */
+@media (min-width: 768px) {
+  .cta-marquee-right,
+  .cta-marquee-left {
+    animation-duration: 30s;
+  }
+}
+
+
+/* -------------------------------------------------- */
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+.font {
+  font-family: "Montserrat", sans-serif;
+}
