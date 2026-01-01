@@ -21,10 +21,10 @@ export async function sendContactNotificationEmail(data: ContactEmailData) {
 
     // Email to admin
     const adminEmail = process.env.ADMIN_EMAIL || 'admin@fladvart.com';
-    const fromEmail = process.env.FROM_EMAIL || 'onboarding@resend.dev';
+    const fromEmail = process.env.FROM_EMAIL!;
 
     const emailResult = await resend.emails.send({
-      from: fromEmail,
+      from: "mail@fladv.art",
       to: adminEmail,
       subject: `New Contact Form Submission from ${name}`,
       html: `
@@ -143,7 +143,7 @@ export async function sendContactConfirmationEmail(data: ContactEmailData) {
     const fromEmail = process.env.FROM_EMAIL || 'onboarding@resend.dev';
 
     const emailResult = await resend.emails.send({
-      from: fromEmail,
+      from: "mail@fladv.art",
       to: email,
       subject: 'Thank you for contacting Fladvart',
       html: `
