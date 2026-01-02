@@ -19,13 +19,16 @@ export async function sendContactNotificationEmail(data: ContactEmailData) {
   try {
     const { name, email, phone, company, message, serviceInterest } = data;
 
-    // Email to admin
-    const adminEmail = process.env.ADMIN_EMAIL || 'admin@fladvart.com';
+    // Email to admins - support multiple emails separated by comma
+    const adminEmails = process.env.ADMIN_EMAIL 
+      ? process.env.ADMIN_EMAIL.split(',').map(email => email.trim())
+      : ['info@fladv.art'];
+    
     const fromEmail = process.env.FROM_EMAIL!;
 
     const emailResult = await resend.emails.send({
       from: "mail@fladv.art",
-      to: adminEmail,
+      to: adminEmails,
       subject: `New Contact Form Submission from ${name}`,
       html: `
         <!DOCTYPE html>
@@ -201,7 +204,7 @@ export async function sendContactConfirmationEmail(data: ContactEmailData) {
               
               <p>Thank you for contacting Fladvart. We have received your message and our team will review it shortly.</p>
               
-              <p>We typically respond within 24-48 hours during business days. If your inquiry is urgent, please feel free to call us directly at +90 538 9953.</p>
+              <p>We typically respond within 24-48 hours during business days. If your inquiry is urgent, please feel free to call us directly at +90 533 446 53 50.</p>
               
               <p>In the meantime, feel free to explore our services and learn more about what we do:</p>
               
@@ -210,7 +213,7 @@ export async function sendContactConfirmationEmail(data: ContactEmailData) {
             <div class="footer">
               <p><strong>Fladvart Creative HQ</strong></p>
               <p>Nişbetiye, Nişbetiye CD No:24, 34340 Beşiktaş/İstanbul, Türkiye</p>
-              <p>Email: info@flad.art | Phone: +90 538 9953</p>
+              <p>Email: info@flad.art | Phone: +90 533 446 53 50</p>
             </div>
           </body>
         </html>
