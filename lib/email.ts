@@ -20,15 +20,13 @@ export async function sendContactNotificationEmail(data: ContactEmailData) {
     const { name, email, phone, company, message, serviceInterest } = data;
 
     // Email to admins - support multiple emails separated by comma
-    const adminEmails = process.env.ADMIN_EMAIL 
-      ? process.env.ADMIN_EMAIL.split(',').map(email => email.trim())
-      : ['info@fladv.art'];
-    
+    const adminEmail = process.env.ADMIN_EMAIL || 'admin@fladvart.com';
+
     const fromEmail = process.env.FROM_EMAIL!;
 
     const emailResult = await resend.emails.send({
       from: "mail@fladv.art",
-      to: adminEmails,
+      to: adminEmail,
       subject: `New Contact Form Submission from ${name}`,
       html: `
         <!DOCTYPE html>
